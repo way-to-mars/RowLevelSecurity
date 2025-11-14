@@ -1,0 +1,11 @@
+ElementKind: InterfaceComponent
+VisibilityScope: InSubsystem
+Id: 9a215209-8b66-4e77-9dff-71556095a8ba
+Name: MainApplication
+Inherits:
+    Type: StandardClientApplicationWithSections
+    AdditionalCommandInterface:
+        Type: UsualCommand
+        Handler: LogOutHandler
+        Image: Logout.svg
+        Presentation: Log out

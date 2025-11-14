@@ -1,0 +1,35 @@
+// @Handler
+// method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
+//     // TODO Insert the handler content
+//     return []
+// ;
+
+// @Handler
+// method ComputeAccessPermissionsForObjects(Objects: ReadableArray<Accounts.PermissionsComputeData>): ReadableMap<Accounts.PermissionsComputeData, ReadableCollection<AccessPermission>>
+//     // TODO Insert the handler content
+//     return {:}
+// ;
+
+@InSubsystem
+method UserOfAccount(AccountRef: Accounts.Reference): Users.Reference?
+    use QueryResult = Query{
+        SELECT
+            Accounts.User AS UserRef
+        FROM
+            Accounts AS Accounts
+    }.Execute()
+    
+    return QueryResult.FirstOrUndefined()?.UserRef
+;
+
+@InSubsystem
+method AccountOfUser(UserRef: Users.Reference): Accounts.Reference
+    use QueryResult = Query{
+        SELECT
+            Accounts.Reference AS Reference
+        FROM
+            Accounts AS Accounts
+    }.Execute()
+    
+    return QueryResult.FirstOrUndefined()?.Reference
+;

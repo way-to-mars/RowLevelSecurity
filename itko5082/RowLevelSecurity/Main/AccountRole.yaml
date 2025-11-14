@@ -1,0 +1,14 @@
+ElementKind: Enumeration
+VisibilityScope: InSubsystem
+Id: 15d06bad-5680-4cd6-8174-93354db76373
+Name: AccountRole
+Items:
+    -
+        Id: 06f0ab78-7782-46a0-9dc8-07296c5d6457
+        Name: Employee
+        Presentation: Сотрудник
+        Default: True
+    -
+        Id: 773dd41c-ec86-4df0-8e28-d810a309d564
+        Name: Director
+        Presentation: Руководитель

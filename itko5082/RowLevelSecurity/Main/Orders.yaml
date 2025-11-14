@@ -1,0 +1,16 @@
+ElementKind: Document
+VisibilityScope: InSubsystem
+Id: be7f8666-8d99-4056-8338-a0f2908fb432
+Name: Orders
+Attributes:
+    -
+        Name: Date
+        Type: DateTime
+    -
+        Id: b2a56482-4e6c-480c-a76f-2f5585a46040
+        Name: Account
+        Type: Accounts.Reference?
+    -
+        Id: 1af9ca6f-9347-4c03-a593-8381995d8265
+        Name: Counterparty
+        Type: Counterparties.Reference?

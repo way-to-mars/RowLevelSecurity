@@ -1,0 +1,10 @@
+Id: 019a81ca-c8d5-7f41-ab9b-98c27722e0a7
+CompatibilityMode: 8.0
+Vendor: itko5082
+Name: RowLevelSecurity
+Version: 1.0
+Presentation: "Row level security"
+VendorPresentation: "itko5082"
+LocalizationLanguages: [Russian]
+DefaultLanguage: Russian
+DevelopmentLanguage: English

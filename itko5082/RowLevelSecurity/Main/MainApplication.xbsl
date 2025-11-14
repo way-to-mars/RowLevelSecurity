@@ -1,0 +1,3 @@
+method LogOutHandler(Command: UsualCommand)
+    Authentication.EndCurrentSession("https://infotexk.ru/")
+;

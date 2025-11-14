@@ -1,0 +1,18 @@
+ElementKind: Catalog
+VisibilityScope: InSubsystem
+Id: 8052872e-5c4c-4ce7-8ff2-b5c40e18c5d2
+Name: Accounts
+AccessControl:
+    Permissions:
+        Default: PermitAuthenticated
+Attributes:
+    -
+        Name: Name
+    -
+        Id: 90ab153b-ecae-4bb7-b5e7-7fd4ce630bb9
+        Name: User
+        Type: Users.Reference?
+    -
+        Id: e6be73e0-7fca-48ec-956d-6d797891a8ed
+        Name: Role
+        Type: AccountRole?

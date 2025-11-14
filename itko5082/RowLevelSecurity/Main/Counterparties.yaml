@@ -1,0 +1,12 @@
+ElementKind: Catalog
+VisibilityScope: InSubsystem
+Id: 2448a29a-c953-42ca-9b3e-a77851d40f70
+Name: Counterparties
+AccessControl:
+    Permissions:
+        Default: PermitAuthenticated
+Attributes:
+    -
+        Name: Name
+Interface:
+    IncludeInAutoInterface: True
