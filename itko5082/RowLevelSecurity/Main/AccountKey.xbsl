@@ -1,14 +1,17 @@
 @Handler
 method CheckHasAccessKeys(Keys: ReadableArray<AccountKey.Object>, Users: ReadableArray<Users.Reference>): ReadableMap<AccountKey.Object, ReadableCollection<Users.Reference>>
-    // TODO Insert the handler content
-    return {:}
+    val KeysMap = new Map<AccountKey.Object, ReadableCollection<Users.Reference>>()
+    
+        
+    return KeysMap
 ;
+
 
 @InSubsystem
 method CreateAccessPermissions(
         AccessPrivilegesDescription: ReadableMap<AccountRole, ReadableCollection<Entity.Privilege>>): Array<AccessPermission>
 
-    return AccessPrivilegesDescription.Transform(Description -> new AccessPermission(
-        Permissions = [new AccountKey.Object(Description.Key)],
-        Privileges = Description.Value))
+    return AccessPrivilegesDescription.Transform(Record -> new AccessPermission(
+        Permissions = [new AccountKey.Object(Record.Key)],
+        Privileges = Record.Value))
 ;

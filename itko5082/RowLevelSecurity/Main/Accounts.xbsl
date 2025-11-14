@@ -1,8 +1,28 @@
 @Handler
 method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
     return AccountKey.CreateAccessPermissions(
-        {:}
-    )
+        {
+            AccountRole.Director: [Entity.Privilege.Create, Entity.Privilege.Update]
+        })
+;
+
+@InSubsystem
+@OnServer
+method UsersByRole(UsersList: Array<Users.Reference>): ReadableMap<AccountRole, ReadableCollection<Users.Reference>>
+    var Result = AccountRole.Items().ToMapWithValues(_ -> <Users.Reference>[])
+
+    use AccessContext.Privileged()
+    Query{
+        SELECT
+            Accounts.User AS User,
+            Accounts.Role AS Role
+        FROM
+            Accounts AS Accounts
+        WHERE
+            Accounts.User IN (%UsersList)
+    }.Execute().ForEach(Row -> Result.GetOrUndefined(Row.Role)?.Add(Row.User))
+
+    return Result
 ;
 
 
