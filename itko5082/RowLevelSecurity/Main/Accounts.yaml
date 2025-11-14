@@ -1,10 +1,14 @@
 ElementKind: Catalog
-VisibilityScope: InSubsystem
 Id: 8052872e-5c4c-4ce7-8ff2-b5c40e18c5d2
 Name: Accounts
+VisibilityScope: InSubsystem
 AccessControl:
     Permissions:
+        Create: PermissionsComputed
         Default: PermitAuthenticated
+        Delete: PermitAdmins
+        Read: PermitAuthenticated
+        Update: PermissionsComputed
 Attributes:
     -
         Name: Name

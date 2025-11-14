@@ -1,11 +1,23 @@
 ElementKind: InterfaceComponent
-VisibilityScope: InSubsystem
 Id: 9a215209-8b66-4e77-9dff-71556095a8ba
 Name: MainApplication
+VisibilityScope: InSubsystem
 Inherits:
     Type: StandardClientApplicationWithSections
+    ActionBarCommandInterface:
+        Type: CommandInterfaceFragment
+        Items:
+            -
+                Type: UsualCommand
+                Handler: UsualCommandHandler
+                Image: BugOutline.svg
+                Presentation: Event log
     AdditionalCommandInterface:
         Type: UsualCommand
+        ActionSeverity: None
+        Enabled: True
         Handler: LogOutHandler
         Image: Logout.svg
+        Importance: Normal
         Presentation: Log out
+        Visible: True

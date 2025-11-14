@@ -1,0 +1,15 @@
+@InSubsystem @OnClient
+method Trace(Message: String)
+    WriteTrace(Message)
+;
+
+@InSubsystem @OnServer
+method Trace(Message: String)
+    WriteTrace(Message)
+;
+
+@Local @OnServer @AvailableFromClient
+method WriteTrace(Msg: String)
+    new TraceLogEvent(Message = Msg).Write()
+;
+

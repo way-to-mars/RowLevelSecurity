@@ -1,3 +1,8 @@
 method LogOutHandler(Command: UsualCommand)
     Authentication.EndCurrentSession("https://infotexk.ru/")
 ;
+
+method UsualCommandHandler(Command: UsualCommand)
+    // TODO Insert the handler content
+    EventLogForm.Open()
+;

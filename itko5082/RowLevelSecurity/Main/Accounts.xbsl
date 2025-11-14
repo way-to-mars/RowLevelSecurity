@@ -1,14 +1,10 @@
-// @Handler
-// method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
-//     // TODO Insert the handler content
-//     return []
-// ;
+@Handler
+method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
+    return AccountKey.CreateAccessPermissions(
+        {:}
+    )
+;
 
-// @Handler
-// method ComputeAccessPermissionsForObjects(Objects: ReadableArray<Accounts.PermissionsComputeData>): ReadableMap<Accounts.PermissionsComputeData, ReadableCollection<AccessPermission>>
-//     // TODO Insert the handler content
-//     return {:}
-// ;
 
 @InSubsystem
 method UserOfAccount(AccountRef: Accounts.Reference): Users.Reference?

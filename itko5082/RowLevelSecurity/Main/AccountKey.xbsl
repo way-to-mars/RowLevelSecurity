@@ -1,0 +1,14 @@
+@Handler
+method CheckHasAccessKeys(Keys: ReadableArray<AccountKey.Object>, Users: ReadableArray<Users.Reference>): ReadableMap<AccountKey.Object, ReadableCollection<Users.Reference>>
+    // TODO Insert the handler content
+    return {:}
+;
+
+@InSubsystem
+method CreateAccessPermissions(
+        AccessPrivilegesDescription: ReadableMap<AccountRole, ReadableCollection<Entity.Privilege>>): Array<AccessPermission>
+
+    return AccessPrivilegesDescription.Transform(Description -> new AccessPermission(
+        Permissions = [new AccountKey.Object(Description.Key)],
+        Privileges = Description.Value))
+;

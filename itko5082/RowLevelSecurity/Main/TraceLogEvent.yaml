@@ -1,0 +1,13 @@
+ElementKind: EventLogEvent
+VisibilityScope: InSubsystem
+Id: 1e395ac9-c29e-4f6d-9e83-e7d7c2ec4907
+Name: TraceLogEvent
+Description: Trace
+Importance: Low
+PresentationTemplate: "%Message"
+Properties:
+    -
+        Id: cc20c961-8c99-4e50-9866-affaf3cc24fe
+        Name: Message
+        Type: String
+        Description: Trace logs

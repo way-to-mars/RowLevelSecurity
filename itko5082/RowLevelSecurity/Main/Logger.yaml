@@ -1,0 +1,5 @@
+ElementKind: CommonModule
+VisibilityScope: InSubsystem
+Id: 7e5a54f1-0506-4de6-915f-d9dd4616c9f2
+Name: Logger
+Environment: ClientAndServer
