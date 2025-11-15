@@ -13,3 +13,14 @@ method WriteTrace(Msg: String)
     new TraceLogEvent(Message = Msg).Write()
 ;
 
+@InSubsystem
+@OnClient @OnServer
+method StackTraceHere(): String
+    try 
+        throw new ExecutionException("")
+    catch Ex: ExecutionException
+        val ST = Ex.StackTrace.GetLines()
+        ST.RemoveByIndex(0)
+        return Strings.Join(ST, Chars.NEW_LINE)
+    ;
+;

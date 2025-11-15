@@ -7,8 +7,8 @@ method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
 ;
 
 @InSubsystem
-@OnServer
-method UsersByRole(UsersList: Array<Users.Reference>): ReadableMap<AccountRole, ReadableCollection<Users.Reference>>
+@OnServer @AvailableFromClient
+method UsersByRoles(UsersList: ReadableArray<Users.Reference>): ReadableMap<AccountRole, ReadableCollection<Users.Reference>>
     var Result = AccountRole.Items().ToMapWithValues(_ -> <Users.Reference>[])
 
     use AccessContext.Privileged()
@@ -20,6 +20,7 @@ method UsersByRole(UsersList: Array<Users.Reference>): ReadableMap<AccountRole, 
             Accounts AS Accounts
         WHERE
             Accounts.User IN (%UsersList)
+            AND User != Undefined
     }.Execute().ForEach(Row -> Result.GetOrUndefined(Row.Role)?.Add(Row.User))
 
     return Result
