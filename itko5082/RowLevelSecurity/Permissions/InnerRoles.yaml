@@ -1,0 +1,14 @@
+ElementKind: Enumeration
+Id: d59c1882-378f-475b-9bc6-5f7f71098dcf
+Name: InnerRoles
+VisibilityScope: InProject
+Items:
+    -
+        Id: 3dc70447-810e-453c-98bb-b79013c5fd0b
+        Name: Authenticated
+    -
+        Id: cc052f80-7b13-44b1-b41f-115c3eb7e91c
+        Name: Everyone
+    -
+        Id: 9443a4fe-f7cb-4770-9077-20b01f51c60b
+        Name: CurrentUser

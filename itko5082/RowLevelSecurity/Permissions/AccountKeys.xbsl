@@ -1,39 +1,18 @@
 @Handler
-method CheckHasAccessKeys(Keys: ReadableArray<Keys.Object>,
-        Users: ReadableArray<Users.Reference>): ReadableMap<Keys.Object, ReadableCollection<Users.Reference>>
+method CheckHasAccessKeys(Keys: ReadableArray<AccountKeys.Object>,
+        Users: ReadableArray<Users.Reference>): ReadableMap<AccountKeys.Object, ReadableCollection<Users.Reference>>
 
-    val UsersByKeys = new Map<Keys.Object, ReadableCollection<Users.Reference>>()
+    val UsersByKeys = new Map<AccountKeys.Object, ReadableCollection<Users.Reference>>()
 
-    // Divides given list of Users into groups by their Role
-    val UsersByRoles = Accounts.UsersByRoles(Users)
-
-    // Assign each group to the corresponding Keys
-    for CurrentKey in Keys
+    val UsersByRoles = CommonModule1.UsersByRoles(Users)     // Divides given list of Users into groups by their Role
+    
+    for CurrentKey in Keys                              // Assign each group to the corresponding Keys
         val KeyOwners = UsersByRoles[CurrentKey.Role]
         UsersByKeys.Insert(CurrentKey, KeyOwners)
     ;
 
     Logger.Trace(Logger.StackTraceHere())
     Logger.Trace("CheckHasAccessKeys\nKeys: $Keys\nUsers: $Users\nReturn: $UsersByRoles")
-
-    // Now we have a mapping of Keys to the group of Users with corresponding permissions
-    return UsersByKeys
-;
-
-@InSubsystem
-method CreateAccessPermissions(
-        PrivilegesByRoles: ReadableMap<Roles, ReadableCollection<Entity.Privilege>>): Array<AccessPermission>
-
-    return PrivilegesByRoles.Transform(Record -> new AccessPermission(
-            Permissions = [new Keys.Object(Record.Key)],
-            Privileges = Record.Value))
-;
-
-@InSubsystem
-method CreateAccessPermissions(
-        PrivilegesByRoles: ReadableMap<UserAccessKey.Object|AccessKey.Object, ReadableCollection<Entity.Privilege>>): Array<AccessPermission>
-
-    return PrivilegesByRoles.Transform(Record -> new AccessPermission(
-            Permissions = [Record.Key],
-            Privileges = Record.Value))
+    
+    return UsersByKeys                                  // Now we have a mapping of Keys to the group of Users with corresponding permissions
 ;

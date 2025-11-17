@@ -1,0 +1,66 @@
+@Local
+@OnServer
+method GetKey(): AccessKey.Object
+    case this
+    when Authenticated
+        return new AccessKeyForAuthenticated.Object()
+    when CurrentUser
+        return new UserAccessKey.Object(Users.CurrentUser)
+    when Everyone
+        return new AccessKeyForEveryone.Object()
+    ;
+;
+
+@Global
+@OnServer
+method AccessPermissionCreate(): AccessPermission
+    return new AccessPermission([this.GetKey()], [Entity.Privilege.Create])
+;
+
+@Global
+@OnServer
+method AccessPermissionRead(): AccessPermission
+    return new AccessPermission([this.GetKey()], [Entity.Privilege.Read])
+;
+
+@Global
+@OnServer
+method AccessPermissionUpdate(): AccessPermission
+    return new AccessPermission([this.GetKey()], [Entity.Privilege.Update])
+;
+
+@Global
+@OnServer
+method AccessPermissionDelete(): AccessPermission
+    return new AccessPermission([this.GetKey()], [Entity.Privilege.Delete])
+;
+
+@Global
+@OnServer
+method AccessPermissionAll(): AccessPermission
+    return new AccessPermission(
+        [this.GetKey()],
+        [Entity.Privilege.Create, Entity.Privilege.Read, Entity.Privilege.Update, Entity.Privilege.Delete])
+;
+
+@Global
+@OnServer
+@NamedParameters
+method AccessPermission(Create = False, Read = False, Update = False, Delete = False): AccessPermission
+    val Privileges = <Entity.Privilege>[]
+
+    if Create
+        Privileges.Add(Entity.Privilege.Create)
+    ;
+    if Read
+        Privileges.Add(Entity.Privilege.Read)
+    ;
+    if Update
+        Privileges.Add(Entity.Privilege.Update)
+    ;
+    if Delete
+        Privileges.Add(Entity.Privilege.Delete)
+    ;
+
+    return new AccessPermission([this.GetKey()], Privileges)
+;
