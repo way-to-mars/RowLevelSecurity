@@ -1,0 +1,13 @@
+ElementKind: EventLogEvent
+VisibilityScope: InSubsystem
+Id: 0aa9c689-dfeb-46da-8b3e-76fef0f123dc
+Name: TracePermissionsEvent
+Description: Trace
+Importance: Low
+PresentationTemplate: Message
+Properties:
+    -
+        Id: e3498819-a884-4d9a-be3b-20ba83f20225
+        Name: Message
+        Type: String
+        Description: Message

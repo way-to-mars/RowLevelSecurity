@@ -1,7 +1,7 @@
 ElementKind: Enumeration
-VisibilityScope: InSubsystem
+VisibilityScope: InProject
 Id: 15d06bad-5680-4cd6-8174-93354db76373
-Name: AccountRole
+Name: Roles
 Items:
     -
         Id: 06f0ab78-7782-46a0-9dc8-07296c5d6457

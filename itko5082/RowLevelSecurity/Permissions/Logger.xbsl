@@ -1,22 +1,26 @@
-@InSubsystem @OnClient
+@InSubsystem
+@OnClient
 method Trace(Message: String)
     WriteTrace(Message)
-;
-
-@InSubsystem @OnServer
-method Trace(Message: String)
-    WriteTrace(Message)
-;
-
-@Local @OnServer @AvailableFromClient
-method WriteTrace(Msg: String)
-    new TraceMainEvent(Message = Msg).Write()
 ;
 
 @InSubsystem
-@OnClient @OnServer
+@OnServer
+method Trace(Message: String)
+    WriteTrace(Message)
+;
+
+@Local
+@OnServer @AvailableFromClient
+method WriteTrace(Msg: String)
+    new TracePermissionsEvent(Message = Msg).Write()
+;
+
+@InSubsystem
+@OnClient
+@OnServer
 method StackTraceHere(): String
-    try 
+    try
         throw new ExecutionException("")
     catch Ex: ExecutionException
         val ST = Ex.StackTrace.GetLines()

@@ -1,9 +1,9 @@
 ElementKind: AccessKey
-VisibilityScope: InSubsystem
+VisibilityScope: InProject
 Id: 23079a98-d458-4faf-a0e7-360077b6a2b6
-Name: AccountKey
+Name: Keys
 Parameters:
     -
         Id: 459979d4-ef55-4713-8af0-39b3bd965ef2
         Name: Role
-        Type: AccountRole
+        Type: Roles

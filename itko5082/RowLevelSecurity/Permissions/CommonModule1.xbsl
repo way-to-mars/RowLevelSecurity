@@ -1,0 +1,35 @@
+@Global @OnServer
+method CreateForAuthenticated(): Array<AccessPermission>
+    return [
+        new AccessPermission(
+            [new AccessKeyForAuthenticated.Object()],
+            [Entity.Privilege.Create])
+        ]
+;
+
+@Global @OnServer
+method ReadForAuthenticated(): Array<AccessPermission>
+    return [
+        new AccessPermission(
+            [new AccessKeyForAuthenticated.Object()],
+            [Entity.Privilege.Read])
+        ]
+;
+
+@Global @OnServer
+method UpdateForAuthenticated(): Array<AccessPermission>
+    return [
+        new AccessPermission(
+            [new AccessKeyForAuthenticated.Object()],
+            [Entity.Privilege.Update])
+        ]
+;
+
+@Global @OnServer
+method DeleteForAuthenticated(): Array<AccessPermission>
+    return [
+        new AccessPermission(
+            [new AccessKeyForAuthenticated.Object()],
+            [Entity.Privilege.Delete])
+        ]
+;

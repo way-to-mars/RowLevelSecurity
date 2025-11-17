@@ -2,6 +2,8 @@ ElementKind: Document
 VisibilityScope: InSubsystem
 Id: be7f8666-8d99-4056-8338-a0f2908fb432
 Name: Orders
+Import:
+    - Permissions
 Attributes:
     -
         Name: Date

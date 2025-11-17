@@ -1,7 +1,7 @@
 ElementKind: Catalog
 Id: 8052872e-5c4c-4ce7-8ff2-b5c40e18c5d2
 Name: Accounts
-VisibilityScope: InSubsystem
+VisibilityScope: InProject
 AccessControl:
     Permissions:
         Create: PermissionsComputed
@@ -20,5 +20,5 @@ Attributes:
     -
         Id: e6be73e0-7fca-48ec-956d-6d797891a8ed
         Name: Role
-        Type: AccountRole
+        Type: Roles
         EmptyValue: ProhibitAlways
