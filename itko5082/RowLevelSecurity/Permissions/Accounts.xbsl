@@ -1,9 +1,12 @@
 
 @Handler
 method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
-    return new AccessPermissonsBuilder()
+    val Result =  new AccessPermissonsBuilder()
         .Read(Roles.Director)
         .Update(Roles.Director)
         .Build()
+    
+    Logger.Trace("Account. Permissions: $Result")
+        
+    return Result
 ;
-

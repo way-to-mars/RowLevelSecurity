@@ -18,134 +18,132 @@
       AccessPermission4 ~ ([Role4], [Read])
       AccessPermission5 ~ ([Role5], [Read])
  */ 
-@InSubsystem
+@Global
 @OnServer
 method Build(): Array<AccessPermission>
-    val Result = CrudsByRoles.Transform(KV -> new AccessPermission([new AccountKeys.Object(KV.Key)], KV.Value))
-    Logger.Trace("AccessPermissionBuilder\n$Result")
-    return Result
+    return CrudsByRoles.Transform(KV -> new AccessPermission([RoleToKey(KV.Key)], KV.Value))
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Create(Role: Roles): AccessPermissonsBuilder
+method Create(Role: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role, Entity.Privilege.Create)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Create(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+method Create(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Create)
     Insert(Role2, Entity.Privilege.Create)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Create(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+method Create(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles, Role3: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Create)
     Insert(Role2, Entity.Privilege.Create)
     Insert(Role3, Entity.Privilege.Create)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Create(Roles: Iterable<Roles>): AccessPermissonsBuilder
+method Create(Roles: Iterable<Roles|PredefinedRoles>): AccessPermissonsBuilder
     Insert(Roles, Entity.Privilege.Create)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Read(Role: Roles): AccessPermissonsBuilder
+method Read(Role: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role, Entity.Privilege.Read)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Read(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+method Read(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Read)
     Insert(Role2, Entity.Privilege.Read)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Read(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+method Read(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles, Role3: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Read)
     Insert(Role2, Entity.Privilege.Read)
     Insert(Role3, Entity.Privilege.Read)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Read(Roles: Iterable<Roles>): AccessPermissonsBuilder
+method Read(Roles: Iterable<Roles|PredefinedRoles>): AccessPermissonsBuilder
     Insert(Roles, Entity.Privilege.Read)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Update(Role: Roles): AccessPermissonsBuilder
+method Update(Role: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role, Entity.Privilege.Update)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Update(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+method Update(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Update)
     Insert(Role2, Entity.Privilege.Update)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Update(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+method Update(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles, Role3: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Update)
     Insert(Role2, Entity.Privilege.Update)
     Insert(Role3, Entity.Privilege.Update)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Update(Roles: Iterable<Roles>): AccessPermissonsBuilder
+method Update(Roles: Iterable<Roles|PredefinedRoles>): AccessPermissonsBuilder
     Insert(Roles, Entity.Privilege.Update)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Delete(Role: Roles): AccessPermissonsBuilder
+method Delete(Role: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role, Entity.Privilege.Delete)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Delete(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+method Delete(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Delete)
     Insert(Role2, Entity.Privilege.Delete)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Delete(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+method Delete(Role1: Roles|PredefinedRoles, Role2: Roles|PredefinedRoles, Role3: Roles|PredefinedRoles): AccessPermissonsBuilder
     Insert(Role1, Entity.Privilege.Delete)
     Insert(Role2, Entity.Privilege.Delete)
     Insert(Role3, Entity.Privilege.Delete)
     return this
 ;
 
-@InSubsystem
+@Global
 @OnServer
-method Delete(Roles: Iterable<Roles>): AccessPermissonsBuilder
+method Delete(Roles: Iterable<Roles|PredefinedRoles>): AccessPermissonsBuilder
     Insert(Roles, Entity.Privilege.Delete)
     return this
 ;
@@ -153,7 +151,7 @@ method Delete(Roles: Iterable<Roles>): AccessPermissonsBuilder
 // Private method
 @Local
 @OnServer
-method Insert(Role: Roles, Privilege: Entity.Privilege)
+method Insert(Role: Roles|PredefinedRoles, Privilege: Entity.Privilege)
     if (CrudsByRoles.ContainsKey(Role))
         CrudsByRoles[Role].Add(Privilege)
     else
@@ -164,7 +162,7 @@ method Insert(Role: Roles, Privilege: Entity.Privilege)
 // Private method
 @Local
 @OnServer
-method Insert(Roles: Iterable<Roles>, Privilege: Entity.Privilege)
+method Insert(Roles: Iterable<Roles|PredefinedRoles>, Privilege: Entity.Privilege)
     Roles.ForEach(method(Role) ->
             if (CrudsByRoles.ContainsKey(Role))
                     CrudsByRoles[Role].Add(Privilege)
@@ -172,4 +170,25 @@ method Insert(Roles: Iterable<Roles>, Privilege: Entity.Privilege)
                     CrudsByRoles.Insert(Role, [Privilege])
             ;
         ;)
+;
+
+// Private method
+@Local
+@OnServer
+static method RoleToKey(Role: Roles|PredefinedRoles): AccessKey.Object
+    case Role
+    when is Roles
+        return new AccountKeys.Object(Role as Roles)
+    when is PredefinedRoles
+        case Role as PredefinedRoles
+        when Authenticated
+            return new AccessKeyForAuthenticated.Object()
+        when CurrentUser
+            return new UserAccessKey.Object(Users.CurrentUser)
+        when Everyone
+            return new AccessKeyForEveryone.Object()
+        ;
+    else
+        throw new IllegalStateException() // This case is definetely redundant
+    ;
 ;

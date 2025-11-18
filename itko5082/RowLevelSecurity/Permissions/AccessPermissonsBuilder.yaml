@@ -1,10 +1,10 @@
 ElementKind: Structure
-VisibilityScope: InSubsystem
 Id: f6b03976-06d5-46d8-ad97-34edee0e7136
 Name: AccessPermissonsBuilder
+VisibilityScope: Global
 Environment: Server
 Fields:
     -
         Name: CrudsByRoles
-        Type: Map<Roles, Array<Entity.Privilege>>
+        Type: Map<Roles|PredefinedRoles, Array<Entity.Privilege>>
         DefaultValue: [ ]
