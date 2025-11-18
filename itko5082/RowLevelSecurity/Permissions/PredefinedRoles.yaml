@@ -1,6 +1,6 @@
 ElementKind: Enumeration
 Id: d59c1882-378f-475b-9bc6-5f7f71098dcf
-Name: InnerRoles
+Name: PredefinedRoles
 VisibilityScope: InProject
 Items:
     -
