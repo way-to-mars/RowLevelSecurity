@@ -1,0 +1,175 @@
+/**
+  How to use.
+  
+    1. Add a list of roles for each privilege using the Create(), Read(), Update() or Delete() methods.
+    
+      Create -> [Role1, Role2]
+      Read  ->  [Role1, Role2, Role3, Role4, Role5]
+      Update -> [Role1, Role2, Role3]
+      Delete -> [Role1]
+    
+    This will create a list of privileges for the specified Roles
+
+    2. Call Build() method. It returns a list of AccessPermissions:
+ 
+      AccessPermission1 ~ ([Role1], [Create, Read, Update, Delete])
+      AccessPermission2 ~ ([Role2], [Create, Read, Update])
+      AccessPermission3 ~ ([Role3], [Read, Update])
+      AccessPermission4 ~ ([Role4], [Read])
+      AccessPermission5 ~ ([Role5], [Read])
+ */ 
+@InSubsystem
+@OnServer
+method Build(): Array<AccessPermission>
+    val Result = CrudsByRoles.Transform(KV -> new AccessPermission([new AccountKeys.Object(KV.Key)], KV.Value))
+    Logger.Trace("AccessPermissionBuilder\n$Result")
+    return Result
+;
+
+@InSubsystem
+@OnServer
+method Create(Role: Roles): AccessPermissonsBuilder
+    Insert(Role, Entity.Privilege.Create)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Create(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Create)
+    Insert(Role2, Entity.Privilege.Create)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Create(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Create)
+    Insert(Role2, Entity.Privilege.Create)
+    Insert(Role3, Entity.Privilege.Create)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Create(Roles: Iterable<Roles>): AccessPermissonsBuilder
+    Insert(Roles, Entity.Privilege.Create)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Read(Role: Roles): AccessPermissonsBuilder
+    Insert(Role, Entity.Privilege.Read)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Read(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Read)
+    Insert(Role2, Entity.Privilege.Read)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Read(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Read)
+    Insert(Role2, Entity.Privilege.Read)
+    Insert(Role3, Entity.Privilege.Read)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Read(Roles: Iterable<Roles>): AccessPermissonsBuilder
+    Insert(Roles, Entity.Privilege.Read)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Update(Role: Roles): AccessPermissonsBuilder
+    Insert(Role, Entity.Privilege.Update)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Update(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Update)
+    Insert(Role2, Entity.Privilege.Update)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Update(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Update)
+    Insert(Role2, Entity.Privilege.Update)
+    Insert(Role3, Entity.Privilege.Update)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Update(Roles: Iterable<Roles>): AccessPermissonsBuilder
+    Insert(Roles, Entity.Privilege.Update)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Delete(Role: Roles): AccessPermissonsBuilder
+    Insert(Role, Entity.Privilege.Delete)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Delete(Role1: Roles, Role2: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Delete)
+    Insert(Role2, Entity.Privilege.Delete)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Delete(Role1: Roles, Role2: Roles, Role3: Roles): AccessPermissonsBuilder
+    Insert(Role1, Entity.Privilege.Delete)
+    Insert(Role2, Entity.Privilege.Delete)
+    Insert(Role3, Entity.Privilege.Delete)
+    return this
+;
+
+@InSubsystem
+@OnServer
+method Delete(Roles: Iterable<Roles>): AccessPermissonsBuilder
+    Insert(Roles, Entity.Privilege.Delete)
+    return this
+;
+
+// Private method
+@Local
+@OnServer
+method Insert(Role: Roles, Privilege: Entity.Privilege)
+    if (CrudsByRoles.ContainsKey(Role))
+        CrudsByRoles[Role].Add(Privilege)
+    else
+        CrudsByRoles.Insert(Role, [Privilege])
+    ;
+;
+
+// Private method
+@Local
+@OnServer
+method Insert(Roles: Iterable<Roles>, Privilege: Entity.Privilege)
+    Roles.ForEach(method(Role) ->
+            if (CrudsByRoles.ContainsKey(Role))
+                    CrudsByRoles[Role].Add(Privilege)
+            else
+                    CrudsByRoles.Insert(Role, [Privilege])
+            ;
+        ;)
+;
