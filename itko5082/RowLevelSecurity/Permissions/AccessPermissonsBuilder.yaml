@@ -8,3 +8,7 @@ Fields:
         Name: CrudsByRoles
         Type: Map<Roles|PredefinedRoles, Array<Entity.Privilege>>
         DefaultValue: [ ]
+    -
+        Name: CurrentUserRef
+        Type: Users.Reference?
+        DefaultValue: Undefined

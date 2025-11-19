@@ -148,6 +148,13 @@ method Delete(Roles: Iterable<Roles|PredefinedRoles>): AccessPermissonsBuilder
     return this
 ;
 
+@Global
+@OnServer
+method SetCurrentUser(UserRef: Users.Reference): AccessPermissonsBuilder
+    CurrentUserRef = UserRef
+    return this
+;
+
 // Private method
 @Local
 @OnServer
@@ -175,7 +182,7 @@ method Insert(Roles: Iterable<Roles|PredefinedRoles>, Privilege: Entity.Privileg
 // Private method
 @Local
 @OnServer
-static method RoleToKey(Role: Roles|PredefinedRoles): AccessKey.Object
+method RoleToKey(Role: Roles|PredefinedRoles): AccessKey.Object
     case Role
     when is Roles
         return new AccountKeys.Object(Role as Roles)
@@ -184,7 +191,7 @@ static method RoleToKey(Role: Roles|PredefinedRoles): AccessKey.Object
         when Authenticated
             return new AccessKeyForAuthenticated.Object()
         when CurrentUser
-            return new UserAccessKey.Object(Users.CurrentUser)
+            return new UserAccessKey.Object(CurrentUserRef ?? Users.CurrentUser)
         when Everyone
             return new AccessKeyForEveryone.Object()
         ;

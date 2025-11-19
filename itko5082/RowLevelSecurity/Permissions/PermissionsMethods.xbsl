@@ -1,0 +1,45 @@
+@InProject
+@OnServer @AvailableFromClient
+method RoleOfUser(UserRef: Users.Reference?): Roles?
+    
+    if UserRef == Undefined
+        return Undefined
+    ;
+    
+    use QueryResult = Query{
+        SELECT
+            Role
+        FROM
+            Accounts
+        WHERE
+            User == %UserRef
+    }.Execute()
+
+    return QueryResult.FirstOrUndefined()?.Role
+;
+
+/**
+  Description:
+    Creates a mapping of all existing Roles to the users from the specified list.
+    The mapping contains keys for all possible Role values.
+ */
+@InProject
+@OnServer @AvailableFromClient
+method UsersByRoles(UsersList: ReadableArray<Users.Reference>): ReadableMap<Roles, ReadableCollection<Users.Reference>>
+    use AccessContext.Privileged()
+
+    use QueryResult = Query{
+        SELECT
+            Accounts.User AS User,
+            Accounts.Role AS Role
+        FROM
+            Accounts2 AS Accounts
+        WHERE
+            Accounts.User IN (%UsersList)
+    }.Execute()
+
+    val ResultMap = QueryResult.GroupBy(Row -> Row.Role, Row -> Row.User!)
+    Roles.Items().ForEach( Role -> ResultMap.InsertIfAbsent(Role, []) )
+    
+    return ResultMap
+;

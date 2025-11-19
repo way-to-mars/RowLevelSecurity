@@ -2,16 +2,23 @@ ElementKind: InterfaceComponent
 Id: 9a215209-8b66-4e77-9dff-71556095a8ba
 Name: MainApplication
 VisibilityScope: InSubsystem
+Import:
+    - Permissions
 Inherits:
     Type: StandardClientApplicationWithSections
+    Title: =ApplicationTitle()
     ActionBarCommandInterface:
         Type: CommandInterfaceFragment
         Items:
             -
                 Type: UsualCommand
-                Handler: UsualCommandHandler
+                ActionSeverity: None
+                Enabled: True
+                Handler: LogoutCommandHandler
                 Image: BugOutline.svg
+                Importance: Normal
                 Presentation: Event log
+                Visible: True
     AdditionalCommandInterface:
         Type: UsualCommand
         ActionSeverity: None
@@ -21,3 +28,47 @@ Inherits:
         Importance: Normal
         Presentation: Log out
         Visible: True
+    NavigationPanelCommandInterface:
+        Type: CommandInterfaceFragment
+        Items:
+            -
+                Type: NavigationCommand
+                ActionSeverity: None
+                Enabled: True
+                FormType: MainPageForm
+                Image: Star.svg
+                Importance: Normal
+                Presentation: Main Page
+                Visible: True
+            -
+                Type: NavigationCommand
+                ActionSeverity: None
+                Enabled: True
+                FormType: Accounts.AutomaticListForm
+                Image: Team.svg
+                Importance: Normal
+                Presentation: Accounts
+                Visible: True
+            -
+                Type: NavigationCommand
+                FormType: Accounts2.AutomaticListForm
+                Image: Team.svg
+                Presentation: Accounts-2
+            -
+                Type: NavigationCommand
+                ActionSeverity: None
+                Enabled: True
+                FormType: Counterparties.AutomaticListForm
+                Image: Database.svg
+                Importance: Normal
+                Presentation: Counterparties
+                Visible: True
+            -
+                Type: NavigationCommand
+                ActionSeverity: None
+                Enabled: True
+                FormType: Orders.AutomaticListForm
+                Image: Cart.svg
+                Importance: Normal
+                Presentation: Orders
+                Visible: True

@@ -1,8 +1,39 @@
+import Permissions
+
+
 method LogOutHandler(Command: UsualCommand)
-    Authentication.EndCurrentSession("https://infotexk.ru/")
+    Authentication.EndCurrentSession()
 ;
 
-method UsualCommandHandler(Command: UsualCommand)
+method LogoutCommandHandler(Command: UsualCommand)
     // TODO Insert the handler content
     EventLogForm.Open()
+;
+
+
+method ApplicationTitle(): String
+    return "RLS :: %{UserPresentation()}"
+;
+
+@OnServer @AvailableFromClient
+static method UserPresentation(): String
+
+    var UserRef = Users.CurrentUser
+    if (UserRef == Undefined)
+        return "Anonymous user"
+    ;
+    
+    val UserName = UserRef.Presentation()
+    val UserRole = PermissionsMethods.RoleOfUser(UserRef)
+    if (UserRole != Undefined)
+        return "%UserName (Role: %UserRole)"
+    ;
+    
+    use AccessContext.Privileged()
+    val UserObj = UserRef.LoadObject()
+    if (UserObj.IsAdmin)
+        return "%UserName (1C.Element: Admin)"
+    else
+        return "%UserName (1C.Element: User)"
+    ;
 ;

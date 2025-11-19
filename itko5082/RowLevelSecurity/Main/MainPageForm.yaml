@@ -1,0 +1,7 @@
+ElementKind: InterfaceComponent
+VisibilityScope: InSubsystem
+Id: 9fb49762-7a45-4b3a-8401-1e0a716e803c
+Name: MainPageForm
+Inherits:
+    Type: Form
+    IncludeInAutoInterface: False
