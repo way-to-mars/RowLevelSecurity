@@ -1,27 +1,21 @@
 @Handler
 method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
-
-    val Result = new AccessPermissonsBuilder()
+    val Permissions = new AccessPermissonsBuilder()
         .Read(PredefinedRoles.Authenticated)
         .Build()
-    
-    Logger.Trace("Account. Permissions: $Result")
-        
-    return Result
+    Logger.Trace("Account. Permissions: $Permissions")
+    return Permissions
 ;
 
 @Handler
 method ComputeAccessPermissionsForObjects(
-        Objects: ReadableArray<Accounts.PermissionsComputeData>): ReadableMap<Accounts.PermissionsComputeData, ReadableCollection<AccessPermission>>
+        Records: ReadableArray<Accounts2.PermissionsComputeData>): ReadableMap<Accounts2.PermissionsComputeData, ReadableCollection<AccessPermission>>
 
-    val Result = Objects.ToMapWithValues(Obj ->
-            new AccessPermissonsBuilder()
-                .Read(PredefinedRoles.CurrentUser)
-                .SetCurrentUser(Obj.User)
-                .Build()
-        )
-        
-    Logger.Trace("Account. Permissions: $Result")
-
-    return Result
+    val Permissions = Records.ToMapWithValues(Rec ->
+        new AccessPermissonsBuilder()
+            .Read(PredefinedRoles.CurrentUser)
+            .SetCurrentUser(Rec.User)
+            .Build())
+    Logger.Trace("Account. Permissions: $Permissions")
+    return Permissions
 ;
