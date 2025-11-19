@@ -51,11 +51,6 @@ Inherits:
                 Visible: True
             -
                 Type: NavigationCommand
-                FormType: Accounts2.AutomaticListForm
-                Image: Team.svg
-                Presentation: Accounts-2
-            -
-                Type: NavigationCommand
                 ActionSeverity: None
                 Enabled: True
                 FormType: Counterparties.AutomaticListForm

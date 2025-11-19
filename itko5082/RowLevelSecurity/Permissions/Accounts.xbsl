@@ -9,7 +9,7 @@ method ComputeAccessPermissions(): ReadableCollection<AccessPermission>
 
 @Handler
 method ComputeAccessPermissionsForObjects(
-        Records: ReadableArray<Accounts2.PermissionsComputeData>): ReadableMap<Accounts2.PermissionsComputeData, ReadableCollection<AccessPermission>>
+        Records: ReadableArray<Accounts.PermissionsComputeData>): ReadableMap<Accounts.PermissionsComputeData, ReadableCollection<AccessPermission>>
 
     val Permissions = Records.ToMapWithValues(Rec ->
         new AccessPermissonsBuilder()

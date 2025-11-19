@@ -30,12 +30,12 @@ method UsersByRoles(UsersList: ReadableArray<Users.Reference>): ReadableMap<Role
 
     use QueryResult = Query{
         SELECT
-            Accounts.User AS User,
-            Accounts.Role AS Role
+            User,
+            Role
         FROM
-            Accounts2 AS Accounts
+            Accounts
         WHERE
-            Accounts.User IN (%UsersList)
+            User IN (%UsersList)
     }.Execute()
 
     val ResultMap = QueryResult.GroupBy(Row -> Row.Role, Row -> Row.User!)
