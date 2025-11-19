@@ -1,5 +1,5 @@
 ElementKind: CommonModule
-VisibilityScope: InSubsystem
 Id: 98b64466-5d52-4aa7-a418-c5a0296610be
-Name: CommonModule1
+Name: PrivateMethods
+VisibilityScope: InSubsystem
 Environment: ClientAndServer
